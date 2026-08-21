@@ -1,0 +1,21 @@
+AGENTS.local.md
+  s_2acca654d49406::t_63113df7ad0c8a 1-104
+AGENTS.local.playwright.md
+  s_2acca654d49406::t_fc389077b2d482 1-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "3ca9476a3cb018df6e63a801ba26d60ca3132d16",
+  "prompts": {},
+  "sessions": {
+    "s_2acca654d49406": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9bf834f2-a65f-4570-b722-10cd0d2528c7",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Hanna Sarokina <hanna.sarokina@ventionteams.com>"
+    }
+  }
+}
