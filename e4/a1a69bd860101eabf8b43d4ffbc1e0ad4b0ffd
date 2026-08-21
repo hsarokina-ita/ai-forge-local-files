@@ -1,0 +1,19 @@
+AGENTS.local.md
+  s_2acca654d49406::t_c1cc0ade0a2fc7 31,37-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "e4a1a69bd860101eabf8b43d4ffbc1e0ad4b0ffd",
+  "prompts": {},
+  "sessions": {
+    "s_2acca654d49406": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9bf834f2-a65f-4570-b722-10cd0d2528c7",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Hanna Sarokina <hanna.sarokina@ventionteams.com>"
+    }
+  }
+}
