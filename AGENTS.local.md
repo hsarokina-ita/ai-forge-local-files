@@ -28,13 +28,21 @@ If a skill, template, or workflow step instructs adding such content, do not add
 
 Code, tests, and documents such as PRDs, architecture spines, specs, and READMEs must read as if the current state is the only state that ever existed. Git and the conversation already hold the change that produced them.
 
-**Code and tests.** No comment narrating history — "moved from `Abc`", "renamed from `oldName`", "this used to return a list", "replaces the legacy path". A comment explains what the code does or why it is this way, on its own terms. Names likewise: not `NewFooService` or `foo2`, but what the thing is. Tests for code that is gone get deleted, never converted into assertions that the old thing is absent and never left skipped as a marker.
+**Code and tests.** No comment narrating history — "moved from `Abc`", "renamed from `oldName`", "this used to return a list", "replaces the legacy path". A comment explains what the code does or why it is this way, on its own terms. Names likewise: not `NewFooService` or `foo2`, but what the thing is. Tests for code that is gone get deleted, never converted into assertions that the old thing is absent and never left skipped as a marker. Ticket IDs stay out of comments too — never "implemented per WOD-1234" or "see WOD-1234 for context"; the reason belongs in the comment itself. The exception is a pointer to work not done yet, such as `// workaround until WOD-1234 replaces the legacy sync`.
 
 **Documents.** The decided end state only — no "we previously planned X", no "this section no longer covers Z", and no meta notes about the document's own editing, including negative claims like "all references to X have been removed". If something is gone, the document is silent about it. Describing the history of the *system* is different: existing behavior a change must preserve, or why a current constraint exists, is subject matter and belongs there.
 
 **Exception.** Artifacts whose purpose is the record invert this: `.memlog.md` decision logs, commit messages, MR descriptions, CHANGELOGs, migration guides, deprecation notices, BMAD status artifacts. In a memlog, append corrections and leave prior entries intact — an entry marking an earlier one superseded is the intended shape. What gets rendered from it still presents final state only.
 
-## Commit hygiene during iterative feedback
+## Commit hygiene
+
+### Never stage on the user's behalf
+
+Staging is the user's review step: a file in the index means they looked at it and approved it. Never run `git add`, `git rm --cached`, `git commit -a`, or `git commit <pathspec>`. Commit with a bare `git commit`, taking exactly what the index already holds.
+
+If the index is empty, or if changes that look like part of the same work are still unstaged or untracked, list them and stop — the user decides what belongs in the commit. Never stage them, and never commit around them silently.
+
+### During iterative feedback
 
 Do not create a separate commit for every small revision while the user is actively reviewing and refining the same change. In particular, avoid one-line commits for wording tweaks, formatting adjustments, and similar follow-up edits.
 
