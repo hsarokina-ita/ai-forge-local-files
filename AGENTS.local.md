@@ -48,24 +48,34 @@ Do not create a separate commit for every small revision while the user is activ
 
 Keep related review revisions in the working tree and consolidate them into one coherent commit after the user approves the result or explicitly asks for a commit. If the implementation was already committed before review began, prefer one follow-up commit containing the complete review round rather than one commit per message.
 
-## Local development servers
+## Frontend development servers
 
-Never start a frontend development server. Do not run `yarn start`, `yarn start:local`, `npm start`, `npm run dev`, `pnpm dev`, or any equivalent command that launches a frontend application.
-
-Only check whether the expected port is already serving the application. For example, check the AI Forge frontend with:
+Before doing any work that requires a running frontend, check whether the expected port is already serving the application. For example, check the AI Forge frontend with:
 
 ```bash
 curl -fsS -o /dev/null -w 'HTTP %{http_code}\n' --max-time 5 \
   http://localhost:8306/
 ```
 
-If the expected frontend is not available on its configured port, stop any work that requires the running frontend and notify the user. Do not start the app, try another port, or continue browser testing against a fallback server.
+If the expected frontend is not available on its configured port, do not start it yourself. Do not run `yarn start`, `yarn start:local`, `npm start`, `npm run dev`, `pnpm dev`, or any equivalent command that launches a frontend application. Tell the user the service needs to be started and wait for them to start it, or to explicitly authorize starting it.
+
+If the user does authorize starting the service and the newly started server reports that the expected port is busy and falls back to another port, stop that server immediately. Do not continue testing against the fallback port. Re-evaluate the existing process, configured protocol, host, and port before deciding what to do next.
 
 ### Codex sandbox note
 
 Codex's sandbox has an isolated network namespace. A localhost check executed inside the sandbox can fail even when the service is running on the user's host.
 
 When Codex checks whether a user-hosted service is available on a localhost port, run the read-only check with `sandbox_permissions: "require_escalated"` so it executes in the host network context. This escalation is for network visibility, not because the check is destructive or requires `sudo`.
+
+## Backend services
+
+Unlike frontend servers, you may start a backend service yourself to run tests against it — but stop it again as soon as testing is done. Do not leave a backend service you started running once the testing session ends.
+
+Before starting a backend service:
+
+- Check that Docker is running: backend services depend on Docker-hosted databases and other infrastructure. If Docker is not running, tell the user rather than starting it yourself.
+- Check that every service the service under test depends on is already running. If a dependency is not running, tell the user rather than starting it yourself.
+- Apply the same port check as above: check whether the service under test is already serving on its expected port before starting it, and do not start a second instance if it already is.
 
 ## Opening files in VS Code
 
