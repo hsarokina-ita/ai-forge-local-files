@@ -34,6 +34,12 @@ Code, tests, and documents such as PRDs, architecture spines, specs, and READMEs
 
 **Exception.** Artifacts whose purpose is the record invert this: `.memlog.md` decision logs, commit messages, MR descriptions, CHANGELOGs, migration guides, deprecation notices, BMAD status artifacts. In a memlog, append corrections and leave prior entries intact — an entry marking an earlier one superseded is the intended shape. What gets rendered from it still presents final state only.
 
+## Code comments — durable only
+
+Only comment what a future reader (no memory of this task) needs: non-obvious invariants, external constraints, why the obvious alternative is wrong. Cut anything that only justifies today's diff (rationale for the change, rejected approaches, review/ticket references) — that belongs in the commit/PR, not the code.
+
+Match the comment's altitude to where it sits. A comment on a function (its signature/summary) stays at the level of what it does and why, as a caller would think about it — no internal mechanics. A comment inside the function body, next to the code it covers, can and should get concrete and technical about that specific step.
+
 ## Commit hygiene
 
 ### Never stage on the user's behalf
