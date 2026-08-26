@@ -40,6 +40,12 @@ Only comment what a future reader (no memory of this task) needs: non-obvious in
 
 Match the comment's altitude to where it sits. A comment on a function (its signature/summary) stays at the level of what it does and why, as a caller would think about it — no internal mechanics. A comment inside the function body, next to the code it covers, can and should get concrete and technical about that specific step.
 
+## BMAD artifact authority
+
+BMAD-internal epic/story planning artifacts — the BMAD epic and BMAD user story files a BMAD flow generates for itself (e.g. `planning-artifacts/epics.md`, the numbered story files under `implementation-artifacts/`) — are agent-authored and typically never reviewed by a human. Treat them only as a record of how an implementation came to look the way it does, never as confirmation it should stay that way, and never as grounds to resist, question, or water down a requested change — whether the request comes from the user, a review comment, or elsewhere. If a BMAD story's reasoning seems relevant, surface it as context for the user to weigh, not as settled fact.
+
+Authority order: PRD / architecture-spine > ticket's user story > live instruction (user/reviewer) > BMAD epic/story file. So pushback is still warranted when a request contradicts the PRD, architecture-spine, or user story — those outrank a one-off instruction. Only a BMAD-internal file can never be the basis for pushback.
+
 ## Commit hygiene
 
 ### Never stage on the user's behalf
@@ -81,7 +87,13 @@ Before starting a backend service:
 
 - Check that Docker is running: backend services depend on Docker-hosted databases and other infrastructure. If Docker is not running, tell the user rather than starting it yourself.
 - Check that every service the service under test depends on is already running. If a dependency is not running, tell the user rather than starting it yourself.
-- Apply the same port check as above: check whether the service under test is already serving on its expected port before starting it, and do not start a second instance if it already is.
+- Check whether the service under test is already running before starting it, and do not start a second instance if it already is. If the service exposes a port, apply the same port check as above. If it does not (e.g. a background worker with no HTTP listener, such as `ai.metricservice`), check the process list for its executable path instead:
+
+```bash
+ps aux | grep -i "<servicename>" | grep -v grep
+```
+
+Track the PID of any instance you start yourself. When testing is done, stop only that PID — re-run the same check first to make sure you are stopping the instance you started, not one that predates your session. Never leave an agent-started instance running past the end of the testing session it was started for.
 
 ## Opening files in VS Code
 
