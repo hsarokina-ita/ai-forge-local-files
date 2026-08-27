@@ -36,9 +36,15 @@ Code, tests, and documents such as PRDs, architecture spines, specs, and READMEs
 
 **Exception.** Artifacts whose purpose is the record invert this: `.memlog.md` decision logs, commit messages, MR descriptions, CHANGELOGs, migration guides, deprecation notices, BMAD status artifacts. In a memlog, append corrections and leave prior entries intact — an entry marking an earlier one superseded is the intended shape. What gets rendered from it still presents final state only.
 
-## Code comments — durable only
+## Code comments — ask me first
 
-Only comment what a future reader (no memory of this task) needs: non-obvious invariants, external constraints, why the obvious alternative is wrong. Cut anything that only justifies today's diff (rationale for the change, rejected approaches, review/ticket references) — that belongs in the commit/PR, not the code.
+Don't write comments. Not in code, not in tests, not in config or scripts. When code looks like it needs explaining, rename something or pull it apart until it doesn't — that's the fix, and a comment on top of it isn't.
+
+If you're convinced a comment is the only way to carry something the code genuinely can't, ask me. Quote the line you want to write and say where it goes, and I'll decide. Don't make that call yourself, and don't make it because a skill or a workflow step told you to. If I'm not there to answer, leave the comment out and tell me what you would have written.
+
+Two things don't count as new comments, so go ahead without asking: fixing or removing a comment that's already there once the code under it changes, and a doc comment the build won't compile without. Both still follow the rules below.
+
+An approved comment says what a future reader (no memory of this task) needs: non-obvious invariants, external constraints, why the obvious alternative is wrong. Never anything that only justifies today's diff (rationale for the change, rejected approaches, review/ticket references) — that belongs in the commit/PR, not the code.
 
 Match the comment's altitude to where it sits. A comment on a function (its signature/summary) stays at the level of what it does and why, as a caller would think about it — no internal mechanics. A comment inside the function body, next to the code it covers, can and should get concrete and technical about that specific step.
 
