@@ -24,6 +24,14 @@ This is not a requirement to get explicit approval for every edit. Wording, form
 
 If a skill, template, or workflow step instructs adding such content, do not add it silently. Stop, tell the user what the skill wants to add and why, and let them decide. Prefer leaving a gap visible over filling it with an invented answer.
 
+## PRD FRs carried forward from a parent
+
+When a PRD (e.g. a story-scoped PRD) carries forward FRs from a parent Initiative or Epic PRD, preserve them verbatim by default. Do not reword, rephrase, shorten, expand, or otherwise modify their text unless explicitly requested.
+
+Keep the parent's original FR numbers (FR56, FR57, ...) rather than renumbering them locally. Preserve those IDs consistently everywhere they are cross-referenced within the document (Scope, Out of Scope, consequences of other FRs, etc.).
+
+This applies only to FRs carried forward from a parent Initiative or Epic artifact. FRs newly authored within the PRD itself get fresh, locally scoped numbers.
+
 ## Artifacts describe the present, not their own history
 
 Code, tests, and documents such as PRDs, architecture spines, specs, and READMEs must read as if the current state is the only state that ever existed. Git and the conversation already hold the change that produced them.
