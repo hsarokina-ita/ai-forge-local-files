@@ -129,6 +129,10 @@ Never use the VS Code embedded browser or `playwright-cli open --headed`. Browse
 
 How to check for, launch, and attach to that browser is machine-specific. If `AGENTS.local.playwright.md` exists at the workspace root, read it before any browser work and follow it exactly. If it does not, this machine has no extra instructions — follow the `playwright-cli` skill's own guidance within the policy above.
 
+## Agent-created worktrees — missing `.worktreeinclude` files
+
+If, inside a worktree you created yourself, a tool that worked in the main tree is unavailable (issue tracker, or anything else depending on a config/credentials file), don't assume it's simply unavailable — you likely skipped a copy step. Check the repo root for `.worktreeinclude`, and copy any file it lists from the main tree into the worktree if missing.
+
 ## `vention-start-flow` skill
 
 ### Branch-name confirmation
