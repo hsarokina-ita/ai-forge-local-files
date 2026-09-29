@@ -44,6 +44,12 @@ Code, tests, and documents such as PRDs, architecture spines, specs, and READMEs
 
 **Exception.** Artifacts whose purpose is the record invert this: `.memlog.md` decision logs, commit messages, MR descriptions, CHANGELOGs, migration guides, deprecation notices, BMAD status artifacts. In a memlog, append corrections and leave prior entries intact — an entry marking an earlier one superseded is the intended shape. What gets rendered from it still presents final state only.
 
+## Memlog entries — only changes that matter, and why
+
+When a skill asks for a `.memlog.md` entry, log only changes that affect how the document is understood: a decision, requirement, scope, constraint, or meaning that changed. Minor wording fixes and moving or reordering paragraphs that leave the meaning intact are not logged.
+
+Every entry states **why** the change was made — the reason, trigger, or trade-off behind it — not just the fact that it changed. Not "Moved caching to the BFF" but "Moved caching to the BFF so the mobile and web clients share one invalidation path".
+
 ## Code comments — ask me first
 
 Don't write comments. Not in code, not in tests, not in config or scripts. When code looks like it needs explaining, rename something or pull it apart until it doesn't — that's the fix, and a comment on top of it isn't.
