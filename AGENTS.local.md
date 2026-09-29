@@ -70,6 +70,10 @@ Staging is the user's review step: a file in the index means they looked at it a
 
 If the index is empty, or if changes that look like part of the same work are still unstaged or untracked, list them and stop — the user decides what belongs in the commit. Never stage them, and never commit around them silently.
 
+### Never unstage files you didn't stage
+
+A file already staged (in the index) when you start working may be the user's own review step, done before you touched anything — not leftover noise from a prior agent run. Never run `git reset`, `git restore --staged`, or anything else that unstages, on the assumption that staged content must be accidental or stale. If staged files are confusing or inconvenient given what you're about to do (e.g. you need to edit a file that's already staged), stop and ask the user what they staged and why, rather than clearing it to get a clean slate. If your own edits land on top of a file the user had staged, say so explicitly and ask whether they want the new content staged, or want to review and restage it themselves — don't silently leave it in a mixed state either.
+
 ### During iterative feedback
 
 Do not create a separate commit for every small revision while the user is actively reviewing and refining the same change. In particular, avoid one-line commits for wording tweaks, formatting adjustments, and similar follow-up edits.
