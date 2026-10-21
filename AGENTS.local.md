@@ -86,6 +86,15 @@ Do not create a separate commit for every small revision while the user is activ
 
 Keep related review revisions in the working tree and consolidate them into one coherent commit after the user approves the result or explicitly asks for a commit. If the implementation was already committed before review began, prefer one follow-up commit containing the complete review round rather than one commit per message.
 
+## Long-running checks — batch, do not repeat
+
+Tests, linters, type checks, builds and other commands that take more than a few seconds are expensive. Do not run them again after every small change.
+
+- While you iterate, collect related fixes first, then run the check once for the batch.
+- During iteration, run only the narrowest scope that covers your change: the affected test files, the changed package, the changed files for a linter.
+- Run the full suite, linter or build once, when the work is complete, before you report it as done.
+- Tell subagents the same rule when you give them work that runs such commands.
+
 ## Frontend development servers
 
 Before doing any work that requires a running frontend, check whether the expected port is already serving the application. For example, check the AI Forge frontend with:
