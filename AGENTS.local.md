@@ -177,3 +177,18 @@ During `vention-start-flow`, ignore these changes when deciding whether the work
 - Changes to local configuration files.
 
 Do not stash, revert, overwrite, or otherwise modify ignored changes. Preserve them while switching or creating branches. Any other changed content in the same file still counts as a dirty-worktree change and must follow the skill's normal handling.
+
+## YouTrack not responding — ask for the VPN
+
+When YouTrack does not respond — the `youtrack` MCP server fails to connect or times out, or a tracker CLI call cannot reach the server — ask me to turn on the VPN, then retry. Do not suggest tokens, environment variables, or permission rules as the fix for an unreachable tracker.
+
+## AI Forge prod database (read-only)
+
+I have a read-only connection string for the AI Forge prod SQL Server database `AiMetrics`. It is in `.vsdlc/workspace.local.toml`, key `ai_forge_prod_ro_password`. Read the user name and password from that key. Never print, log, or copy the password.
+
+- The server uses a self-signed TLS certificate with a negative serial number. With `sqlcmd` (go-sqlcmd), always set `GODEBUG=x509negativeserial=1` and add `-C`. Do this from the first call. Do not wait for the connection to fail.
+- Give the password through the `SQLCMDPASSWORD` environment variable, not `-P`.
+
+```bash
+GODEBUG=x509negativeserial=1 SQLCMDPASSWORD='<password>' sqlcmd -S ai-forge-prod.vention.local,1933 -d AiMetrics -U <user> -C -Q "<query>"
+```
