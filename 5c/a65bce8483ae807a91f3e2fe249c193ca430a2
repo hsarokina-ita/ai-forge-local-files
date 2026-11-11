@@ -1,0 +1,14 @@
+AGENTS.local.md
+  h_15d3eda3ca68de 180-194
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5ca65bce8483ae807a91f3e2fe249c193ca430a2",
+  "prompts": {},
+  "humans": {
+    "h_15d3eda3ca68de": {
+      "author": "Hanna Sarokina <hanna.sarokina@ventionteams.com>"
+    }
+  }
+}
